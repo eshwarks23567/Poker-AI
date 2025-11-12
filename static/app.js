@@ -102,8 +102,12 @@ async function startNewGame() {
 }
 
 async function takeAction(action, amount = 0) {
-    if (!gameActive) return;
+    if (!gameActive) {
+        console.log('Game not active, ignoring action');
+        return;
+    }
     
+    console.log(`Taking action: ${action}, amount: ${amount}`);
     showLoading();
     try {
         const response = await fetch(`${API_BASE}/user_action`, {
@@ -112,12 +116,14 @@ async function takeAction(action, amount = 0) {
             body: JSON.stringify({ action, amount })
         });
         const data = await response.json();
+        console.log('Response from user_action:', data);
         
         if (data.success) {
             updateUI(data.game_state, data.game_over);
             updateMessage(data.message);
             
             if (data.game_over) {
+                console.log('Game over detected');
                 gameActive = false;
                 disableActionButtons();
                 showWinner(data.winner, data.message);
@@ -125,19 +131,42 @@ async function takeAction(action, amount = 0) {
                 enableNewGameButton();
                 btnTrain.disabled = false;
             } else {
+                console.log('Enabling action buttons with game state:', data.game_state);
                 enableActionButtons(data.game_state);
             }
             
             // Update agent stats
             updateAgentStats();
         } else {
+            console.error('Action failed:', data.error);
             updateMessage(data.error || 'Invalid action');
+            // Re-enable action buttons on error
+            if (gameActive && data.game_state) {
+                enableActionButtons(data.game_state);
+            } else {
+                // Fallback: enable all action buttons
+                btnFold.disabled = false;
+                btnCheck.disabled = false;
+                btnCall.disabled = false;
+                btnRaise.disabled = false;
+            }
         }
     } catch (error) {
         console.error('Error taking action:', error);
         updateMessage('Error processing action. Please try again.');
+        // Enable all action buttons on error so user can try again
+        btnFold.disabled = false;
+        btnCheck.disabled = false;
+        btnCall.disabled = false;
+        btnRaise.disabled = false;
     } finally {
         hideLoading();
+        console.log('Button states after action:', {
+            fold: btnFold.disabled,
+            check: btnCheck.disabled,
+            call: btnCall.disabled,
+            raise: btnRaise.disabled
+        });
     }
 }
 
@@ -366,7 +395,9 @@ function showWinner(winner, message) {
 
 // Action Button Controls
 function enableActionButtons(gameState) {
+    console.log('enableActionButtons called with gameState:', gameState);
     const validActions = getValidActions(gameState);
+    console.log('Valid actions:', validActions);
     
     btnFold.disabled = !validActions.includes('fold');
     btnCheck.disabled = !validActions.includes('check');
@@ -376,8 +407,15 @@ function enableActionButtons(gameState) {
     // Update call button text with amount
     if (validActions.includes('call')) {
         const toCall = gameState.current_bet - gameState.user.bet;
-        btnCall.textContent = `📞 Call $${toCall}`;
+        btnCall.textContent = `CALL $${toCall}`;
     }
+    
+    console.log('Buttons after enable:', {
+        fold: btnFold.disabled,
+        check: btnCheck.disabled,
+        call: btnCall.disabled,
+        raise: btnRaise.disabled
+    });
 }
 
 function disableActionButtons() {
