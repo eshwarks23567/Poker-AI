@@ -1,0 +1,136 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Poker AI - Double DQN vs CFR</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+</head>
+<body>
+    <!-- Loading Overlay -->
+    <div id="loading-overlay" class="loading-overlay" style="display: none;">
+        <div class="loading-spinner">
+            <div class="spinner"></div>
+            <p>Processing...</p>
+        </div>
+    </div>
+
+    <div class="container">
+        <header>
+            <h1>🎰 Poker AI Challenge</h1>
+            <p class="subtitle">Adaptive Agent: Double DQN vs CFR Strategy</p>
+        </header>
+
+        <div class="stats-panel">
+            <div class="stat-box">
+                <span class="stat-label">Current Strategy:</span>
+                <span id="current-strategy" class="stat-value">DQN</span>
+            </div>
+            <div class="stat-box">
+                <span class="stat-label">DQN Performance:</span>
+                <span id="dqn-perf" class="stat-value">0.00</span>
+            </div>
+            <div class="stat-box">
+                <span class="stat-label">CFR Performance:</span>
+                <span id="cfr-perf" class="stat-value">0.00</span>
+            </div>
+            <div class="stat-box">
+                <span class="stat-label">Exploration:</span>
+                <span id="epsilon" class="stat-value">1.00</span>
+            </div>
+        </div>
+
+        <!-- Main Game Layout: Table Left, Actions Right -->
+        <div class="game-layout">
+            <div class="poker-table">
+            <!-- Dealer -->
+            <div class="dealer">
+                <div class="dealer-chip">🎲</div>
+                <span class="dealer-label">DEALER</span>
+            </div>
+
+            <!-- Community Cards -->
+            <div class="community-cards">
+                <h3>Community Cards</h3>
+                <div id="community-cards-container" class="cards-row">
+                    <div class="card card-back">🂠</div>
+                    <div class="card card-back">🂠</div>
+                    <div class="card card-back">🂠</div>
+                    <div class="card card-back">🂠</div>
+                    <div class="card card-back">🂠</div>
+                </div>
+                <div class="pot-display">
+                    <span>POT: $</span><span id="pot-amount">0</span>
+                </div>
+            </div>
+
+            <!-- Agent Player (Top) -->
+            <div class="player agent-player">
+                <div class="player-info">
+                    <h3>AI AGENT</h3>
+                    <div class="chips">
+                        <span>💰 $</span><span id="agent-chips">1000</span>
+                    </div>
+                    <div class="player-bet">
+                        <span>Bet: $</span><span id="agent-bet">0</span>
+                    </div>
+                </div>
+                <div id="agent-cards" class="cards-row">
+                    <div class="card card-back">🂠</div>
+                    <div class="card card-back">🂠</div>
+                </div>
+                <div id="agent-hand-description" class="hand-description"></div>
+                <div id="agent-status" class="player-status"></div>
+            </div>
+
+            <!-- User Player (Bottom) -->
+            <div class="player user-player">
+                <div class="player-info">
+                    <h3>YOU</h3>
+                    <div class="chips">
+                        <span>💰 $</span><span id="user-chips">1000</span>
+                    </div>
+                    <div class="player-bet">
+                        <span>Bet: $</span><span id="user-bet">0</span>
+                    </div>
+                </div>
+                <div id="user-cards" class="cards-row">
+                    <div class="card card-back">🂠</div>
+                    <div class="card card-back">🂠</div>
+                </div>
+                <div id="user-hand-description" class="hand-description">Your hand: waiting...</div>
+                <div id="user-status" class="player-status"></div>
+            </div>
+        </div>
+
+        <!-- Action Panel -->
+        <div class="action-panel">
+            <div class="message-box" style="display: none;">
+                <p id="game-message">Click "New Game" to start playing!</p>
+            </div>
+
+            <div class="action-buttons">
+                <button id="btn-new-game" class="btn btn-primary">NEW GAME</button>
+                <button id="btn-fold" class="btn btn-danger" disabled>FOLD</button>
+                <button id="btn-check" class="btn btn-secondary" disabled>CHECK</button>
+                <button id="btn-call" class="btn btn-success" disabled>CALL</button>
+                <button id="btn-raise" class="btn btn-warning" disabled>RAISE</button>
+            </div>
+
+            <div class="raise-controls" id="raise-controls" style="display: none;">
+                <label for="raise-amount">Raise Amount: $</label>
+                <input type="number" id="raise-amount" min="20" step="10" value="50">
+                <button id="btn-confirm-raise" class="btn btn-warning">Confirm Raise</button>
+            </div>
+
+            <div class="dev-controls">
+                <button id="btn-skip" class="btn btn-small">Skip to Showdown</button>
+                <button id="btn-train" class="btn btn-small">Train 100 Episodes</button>
+            </div>
+        </div>
+        </div> <!-- End game-layout -->
+    </div>
+
+    <script src="{{ url_for('static', filename='app.js') }}"></script>
+</body>
+</html>
