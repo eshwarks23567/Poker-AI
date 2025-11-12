@@ -181,7 +181,7 @@ def train():
     
     try:
         data = request.json if request.json else {}
-        episodes = data.get('episodes', 100)
+        episodes = data.get('episodes', 10)  # Changed default from 100 to 10
         
         # Save current game state
         global game_active
