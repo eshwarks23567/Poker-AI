@@ -16,8 +16,27 @@ import requests
 import os
 os.environ['TF_CPP_MIN_LOG_LEVEL'] = '2'  # Suppress TensorFlow info/warning messages
 
-import tensorflow as tf
-from tensorflow.keras import layers
+try:
+    import tensorflow as tf
+    # Configure TensorFlow for memory efficiency
+    physical_devices = tf.config.list_physical_devices('GPU')
+    if physical_devices:
+        try:
+            for device in physical_devices:
+                tf.config.experimental.set_memory_growth(device, True)
+        except:
+            pass
+    # Limit CPU memory usage
+    tf.config.threading.set_inter_op_parallelism_threads(1)
+    tf.config.threading.set_intra_op_parallelism_threads(1)
+    
+    layers = tf.keras.layers
+except Exception:
+    try:
+        import keras as tf  # try standalone Keras as a fallback
+        layers = tf.keras.layers if hasattr(tf, 'keras') else tf.layers
+    except Exception as e:
+        raise ImportError("TensorFlow or Keras is required to run this module; please install 'tensorflow' or 'keras'.") from e
 
 # Deck of Cards API configuration
 DECK_API_BASE = "https://deckofcardsapi.com/api/deck"
@@ -553,7 +572,7 @@ class DoubleDQNAgent:
     def __init__(self, state_size=127, action_size=4):  # fold, check/call, small raise, big raise
         self.state_size = state_size
         self.action_size = action_size
-        self.memory = deque(maxlen=10000)
+        self.memory = deque(maxlen=2000)  # Reduced from 10000 for memory efficiency
         self.gamma = 0.99
         self.epsilon = 0.3  # Start with 30% exploration (was 1.0 - too random)
         self.epsilon_min = 0.01
@@ -569,21 +588,31 @@ class DoubleDQNAgent:
         self.performance_history = deque(maxlen=100)
     
     def _build_model(self):
-        """Dueling DQN architecture"""
-        from tensorflow.keras import backend as K
+        """Dueling DQN architecture - Optimized for low memory"""
+        # Resolve Keras backend in a robust way (works with tensorflow.keras or standalone keras)
+        try:
+            # Prefer tensorflow backend if tf was imported successfully earlier
+            K = tf.keras.backend
+        except Exception:
+            try:
+                import keras
+                K = keras.backend
+            except Exception:
+                # Fallback to tensorflow.keras backend import (last resort)
+                from tensorflow.keras import backend as K  # type: ignore
         
         inputs = layers.Input(shape=(self.state_size,))
-        x = layers.Dense(256, activation='relu')(inputs)
+        # Reduced layer sizes for memory efficiency
+        x = layers.Dense(128, activation='relu')(inputs)
         x = layers.Dropout(0.2)(x)
-        x = layers.Dense(128, activation='relu')(x)
-        x = layers.Dropout(0.2)(x)
+        x = layers.Dense(64, activation='relu')(x)
         
         # Value stream
-        value = layers.Dense(64, activation='relu')(x)
+        value = layers.Dense(32, activation='relu')(x)
         value = layers.Dense(1)(value)
         
         # Advantage stream
-        advantage = layers.Dense(64, activation='relu')(x)
+        advantage = layers.Dense(32, activation='relu')(x)
         advantage = layers.Dense(self.action_size)(advantage)
         
         # Combine streams using Lambda layer
