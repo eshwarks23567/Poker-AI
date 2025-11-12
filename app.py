@@ -187,6 +187,9 @@ def train():
         global game_active
         saved_game_active = game_active
         
+        # Disable fast mode for training - use full AI
+        agent.fast_mode = False
+        
         results = []
         wins = 0
         losses = 0
@@ -281,6 +284,9 @@ def train():
         # Save models after training
         agent.save_models()
         
+        # Re-enable fast mode after training
+        agent.fast_mode = True
+        
         # Restore game state
         game_active = saved_game_active
         if not game_active:
@@ -296,6 +302,8 @@ def train():
         })
         
     except Exception as e:
+        # Re-enable fast mode on error
+        agent.fast_mode = True
         error_msg = str(e)
         print(f"Training error: {error_msg}")
         traceback.print_exc()
