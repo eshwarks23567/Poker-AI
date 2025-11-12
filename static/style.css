@@ -712,26 +712,322 @@ header h1 {
 
 /* Responsive */
 @media (max-width: 768px) {
-    header h1 {
-        font-size: 2em;
+    body {
+        padding: 10px;
+        min-height: 100vh;
+        overflow-x: hidden;
     }
     
+    .container {
+        max-width: 100%;
+        padding: 0;
+    }
+    
+    header {
+        margin-bottom: 15px;
+        padding: 15px 10px;
+    }
+    
+    header h1 {
+        font-size: 1.5em;
+        letter-spacing: 1px;
+    }
+    
+    .subtitle {
+        font-size: 0.9em;
+    }
+    
+    /* Stats Panel */
+    .stats-panel {
+        grid-template-columns: repeat(2, 1fr);
+        gap: 8px;
+        margin-bottom: 15px;
+    }
+    
+    .stat-box {
+        padding: 10px;
+    }
+    
+    .stat-label {
+        font-size: 0.75em;
+    }
+    
+    .stat-value {
+        font-size: 1.2em;
+    }
+    
+    /* Game Layout */
+    .game-layout {
+        flex-direction: column;
+        gap: 15px;
+        max-width: 100%;
+    }
+    
+    .game-layout .poker-table {
+        flex: 1 1 auto;
+        width: 100%;
+        max-width: 100%;
+    }
+    
+    .game-layout .action-panel {
+        flex: 1 1 auto;
+        width: 100%;
+        max-width: 100%;
+    }
+    
+    /* Poker Table */
     .poker-table {
-        border-radius: 100px / 50px;
-        padding: 20px;
+        border-radius: 80px / 40px;
+        padding: 12px 15px 10px 15px;
+        min-height: auto;
+        max-height: none;
+        border-width: 8px;
+    }
+    
+    /* Community Cards */
+    .community-cards h3 {
+        font-size: 1em;
+        margin-bottom: 5px;
+    }
+    
+    .cards-row {
+        gap: 5px;
+        margin: 4px 0;
     }
     
     .card {
         width: 50px;
         height: 70px;
-        font-size: 2em;
+        font-size: 1.6em;
+        border-width: 1.5px;
     }
     
+    .pot-display {
+        font-size: 1.2em;
+        margin-top: 5px;
+    }
+    
+    /* Players */
+    .player {
+        padding: 8px;
+        border-radius: 8px;
+        flex-wrap: wrap;
+    }
+    
+    .player-info {
+        min-width: 80px;
+    }
+    
+    .player-info h3 {
+        font-size: 1em;
+        margin-bottom: 3px;
+    }
+    
+    .chips {
+        font-size: 0.9em;
+        margin: 2px 0;
+    }
+    
+    .player-bet {
+        font-size: 0.85em;
+        margin: 2px 0;
+    }
+    
+    .hand-description {
+        font-size: 0.8em;
+        padding: 4px 8px;
+        margin-top: 5px;
+        min-height: 24px;
+        width: 100%;
+    }
+    
+    /* Action Panel */
+    .action-panel {
+        padding: 15px;
+        gap: 12px;
+    }
+    
+    .message-box {
+        padding: 12px;
+        min-height: 40px;
+    }
+    
+    .message-box p {
+        font-size: 1em;
+    }
+    
+    /* Buttons */
     .action-buttons {
         flex-direction: column;
+        gap: 8px;
+        margin-bottom: 0;
     }
     
     .btn {
         width: 100%;
+        padding: 14px 20px;
+        font-size: 1em;
+        letter-spacing: 1.5px;
+        border-width: 3px;
+    }
+    
+    .btn-small {
+        padding: 10px 16px;
+        font-size: 0.65em;
+        width: 100%;
+    }
+    
+    /* Raise Controls */
+    .raise-controls {
+        flex-direction: column;
+        gap: 10px;
+        padding: 12px;
+        align-items: stretch;
+    }
+    
+    .raise-controls label {
+        font-size: 0.9em;
+        text-align: center;
+    }
+    
+    .raise-controls input {
+        width: 100%;
+        font-size: 1em;
+        padding: 12px;
+    }
+    
+    .raise-controls button {
+        width: 100%;
+    }
+    
+    /* Dev Controls */
+    .dev-controls {
+        flex-direction: column;
+        gap: 8px;
+        padding-top: 12px;
+    }
+    
+    /* Loading Spinner */
+    .spinner {
+        width: 50px;
+        height: 50px;
+        border-width: 5px;
+    }
+    
+    .loading-spinner p {
+        font-size: 1em;
     }
 }
+
+/* Extra small devices (phones in portrait, less than 576px) */
+@media (max-width: 576px) {
+    body {
+        padding: 5px;
+    }
+    
+    header h1 {
+        font-size: 1.2em;
+    }
+    
+    .subtitle {
+        font-size: 0.8em;
+    }
+    
+    .stats-panel {
+        gap: 5px;
+        margin-bottom: 10px;
+    }
+    
+    .stat-box {
+        padding: 8px;
+    }
+    
+    .stat-label {
+        font-size: 0.7em;
+    }
+    
+    .stat-value {
+        font-size: 1em;
+    }
+    
+    .poker-table {
+        padding: 10px;
+        border-width: 6px;
+    }
+    
+    .card {
+        width: 45px;
+        height: 63px;
+        font-size: 1.4em;
+    }
+    
+    .pot-display {
+        font-size: 1.1em;
+    }
+    
+    .player-info h3 {
+        font-size: 0.9em;
+    }
+    
+    .chips, .player-bet {
+        font-size: 0.8em;
+    }
+    
+    .hand-description {
+        font-size: 0.75em;
+        padding: 4px 6px;
+    }
+    
+    .btn {
+        font-size: 0.9em;
+        padding: 12px 18px;
+    }
+    
+    .btn-small {
+        font-size: 0.6em;
+        padding: 8px 12px;
+    }
+}
+
+/* Landscape mode for mobile */
+@media (max-width: 768px) and (orientation: landscape) {
+    body {
+        padding: 5px;
+    }
+    
+    .game-layout {
+        flex-direction: row;
+        gap: 10px;
+    }
+    
+    .game-layout .poker-table {
+        flex: 0 0 55%;
+    }
+    
+    .game-layout .action-panel {
+        flex: 0 0 43%;
+        max-height: 90vh;
+        overflow-y: auto;
+    }
+    
+    .poker-table {
+        max-height: 90vh;
+        padding: 10px;
+    }
+    
+    .card {
+        width: 40px;
+        height: 56px;
+        font-size: 1.3em;
+    }
+    
+    .action-buttons {
+        gap: 6px;
+    }
+    
+    .btn {
+        padding: 10px 16px;
+        font-size: 0.85em;
+    }
+}
+
