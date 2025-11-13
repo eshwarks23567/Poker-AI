@@ -181,14 +181,14 @@ def train():
     
     try:
         data = request.json if request.json else {}
-        episodes = data.get('episodes', 10)  # Changed default from 100 to 10
+        episodes = data.get('episodes', 5)  # Changed default from 10 to 5
         
         # Save current game state
         global game_active
         saved_game_active = game_active
         
-        # Disable fast mode for training - use full AI
-        agent.fast_mode = False
+        # Keep fast mode ON during training to prevent timeout
+        # Training will use heuristics but still collect performance data
         
         results = []
         wins = 0
@@ -281,11 +281,9 @@ def train():
                 traceback.print_exc()
                 continue
         
-        # Save models after training
+        # Save models after training (models won't have much new data in fast mode)
+        # But this ensures any loaded models are saved properly
         agent.save_models()
-        
-        # Re-enable fast mode after training
-        agent.fast_mode = True
         
         # Restore game state
         game_active = saved_game_active
@@ -302,8 +300,6 @@ def train():
         })
         
     except Exception as e:
-        # Re-enable fast mode on error
-        agent.fast_mode = True
         error_msg = str(e)
         print(f"Training error: {error_msg}")
         traceback.print_exc()

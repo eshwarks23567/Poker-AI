@@ -197,13 +197,13 @@ async function skipToShowdown() {
 async function trainAgent() {
     btnTrain.disabled = true;
     showLoading();
-    updateMessage('Training agent for 10 episodes... Please wait.');
+    updateMessage('Training agent for 5 episodes... Please wait.');
     
     try {
         const response = await fetch(`${API_BASE}/train`, {
             method: 'POST',
             headers: { 'Content-Type': 'application/json' },
-            body: JSON.stringify({ episodes: 10 })
+            body: JSON.stringify({ episodes: 5 })
         });
         
         if (!response.ok) {
