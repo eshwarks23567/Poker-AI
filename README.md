@@ -36,7 +36,7 @@ A Texas Hold'em poker game featuring an adaptive AI agent that switches between 
 
   - 10% threshold for strategy switching
 
-## 🚀 Quick Start  - Real-time strategy display
+## Quick Start  - Real-time strategy display
 
 
 
@@ -72,7 +72,7 @@ cd AceAI- Real-time chip and bet updates
 
 ```bash
 
-# Windows## 📁 Project Structure
+# Windows##  Project Structure
 
 python -m venv venv
 
@@ -102,7 +102,7 @@ pip install -r requirements.txt└── README.md           # This file
 
 
 
-### Running Locally## 🚀 Installation
+### Running Locally##  Installation
 
 
 
@@ -162,7 +162,7 @@ Navigate to: `http://localhost:5000`Should output:
 
 
 
-## 🌐 Deploying Online3. **Start the server**:
+##  Deploying Online3. **Start the server**:
 
 ```powershell
 
@@ -204,11 +204,11 @@ Navigate to: http://localhost:5000
 
 3. **Deploy on Render**
 
-   - Go to [render.com](https://render.com)## 🎮 How to Play
+   - Go to [render.com](https://render.com)##  How to Play
 
    - Click "New +" → "Web Service"
 
-   - Connect your GitHub repository1. **Start Game**: Click "🎮 New Game" button
+   - Connect your GitHub repository1. **Start Game**: Click " New Game" button
 
    - Render will auto-detect Flask settings:2. **View Cards**: You'll see your hole cards (agent's are hidden)
 
@@ -230,7 +230,7 @@ Navigate to: http://localhost:5000
 
 
 
-2. **Deploy on Railway**## 📊 Dashboard Stats
+2. **Deploy on Railway**##  Dashboard Stats
 
    - Go to [railway.app](https://railway.app)
 
@@ -246,13 +246,13 @@ Navigate to: http://localhost:5000
 
 ### Option 3: Heroku
 
-## 🎓 Training the AI
+##  Training the AI
 
 1. **Create a `Procfile`**
 
 ### In-Browser Training
 
-```bashClick "🎓 Train 100 Episodes" button to:
+```bashClick " Train 100 Episodes" button to:
 
 echo "web: gunicorn app:app" > Procfile- Run 100 simulated games
 
@@ -274,15 +274,15 @@ echo "gunicorn==21.2.0" >> requirements.txt- Performance values increase
 
 3. **Deploy**
 
-## 🔧 Advanced Features
+##  Advanced Features
 
 ```bash
 
 heroku login### Developer Controls
 
-heroku create your-poker-ai-app- **⏩ Skip to Showdown**: Instantly deal all community cards
+heroku create your-poker-ai-app- ** Skip to Showdown**: Instantly deal all community cards
 
-git push heroku main- **🎓 Train**: Run training episodes
+git push heroku main- ** Train**: Run training episodes
 
 heroku open
 
@@ -306,7 +306,7 @@ POST /api/new_game          # Start new game
 
 POST /api/save_models       # Save trained models
 
-## 📁 Project Structure```
+##  Project Structure```
 
 
 
@@ -326,7 +326,7 @@ AceAI/- Player hole cards (one-hot): 34 features
 
 ├── templates/
 
-│   └── index.html         # Main game page (retro UI)## 🧠 AI Architecture Details
+│   └── index.html         # Main game page (retro UI)## AI Architecture Details
 
 ├── static/
 
@@ -344,7 +344,7 @@ AceAI/- Player hole cards (one-hot): 34 features
 
            ↓
 
-## 🎯 How It Works    Q-values = Value + (Advantage - mean(Advantage))
+##  How It Works    Q-values = Value + (Advantage - mean(Advantage))
 
 ```
 
@@ -414,7 +414,7 @@ Showdown → Best 5-Card Hand WinsThese are normal:
 
 - Onednn optimization messages
 
-## 🛠️ Configuration
+##  Configuration
 
 ### Cards Not Showing
 
@@ -424,7 +424,7 @@ Showdown → Best 5-Card Hand WinsThese are normal:
 
 Create a `.env` file (optional):
 
-## 🎯 Strategy Tips
+##  Strategy Tips
 
 ```bash
 
@@ -438,7 +438,7 @@ PORT=5000- **Good Hands**: Agent raises more with strong starting hands
 
 ### Customization
 
-## 📝 Future Enhancements
+##  Future Enhancements
 
 Edit these values in `poker_backend.py`:
 
@@ -458,7 +458,7 @@ epsilon = 0.3           # Initial exploration rate (30%)- [ ] Bluff detection
 
 epsilon_min = 0.01      # Minimum exploration (1%)
 
-epsilon_decay = 0.995   # Decay multiplier## 🤝 Credits
+epsilon_decay = 0.995   # Decay multiplier## Credits
 
 
 
@@ -470,11 +470,11 @@ performance_window = 20          # Games to track for strategy switch- **Framewo
 
 switch_threshold = 0.1           # 10% performance difference to switch
 
-```## 📄 License
+```## License
 
 
 
-## 📊 Performance StatsMIT License - Free to use and modify
+## Performance StatsMIT License - Free to use and modify
 
 
 
@@ -482,7 +482,7 @@ The UI displays real-time statistics:---
 
 
 
-- **Current Strategy**: Active AI strategy (DQN or CFR)**Enjoy playing against the adaptive AI!** 🃏🤖
+- **Current Strategy**: Active AI strategy (DQN or CFR)**Enjoy playing against the adaptive AI!** 
 
 - **DQN Performance**: Average reward over last 10 games
 - **CFR Performance**: Average reward over last 10 games  
@@ -490,7 +490,7 @@ The UI displays real-time statistics:---
 
 Watch these values change as you play and train the AI!
 
-## 🐛 Troubleshooting
+## Troubleshooting
 
 ### "Module not found" errors
 
@@ -524,7 +524,7 @@ CPU warnings like "Could not load dynamic library" are normal and can be ignored
 - Clear browser cache
 - Check browser console for errors
 
-## 🎨 UI Features
+## UI Features
 
 - ✅ Retro gaming fonts (Press Start 2P, Bebas Neue)
 - ✅ 3D button effects with press animation
@@ -536,7 +536,7 @@ CPU warnings like "Could not load dynamic library" are normal and can be ignored
 - ✅ Real-time chip and pot updates
 - ✅ Hand strength indicators
 
-## 🧠 AI Technical Details
+## AI Technical Details
 
 ### Double DQN Architecture
 
@@ -581,7 +581,7 @@ Q(s,a) = V(s) + [A(s,a) - mean(A(s,·))]
 - Pot odds: 1 feature
 - Win probability: 1 feature
 
-## 📝 API Endpoints
+## API Endpoints
 
 ```
 POST /api/new_game          # Start a new game
@@ -592,7 +592,7 @@ POST /api/skip_to_showdown  # Skip to final cards (dev mode)
 POST /api/train             # Train AI for N episodes
 ```
 
-## 🔮 Future Enhancements
+## Future Enhancements
 
 - [ ] Multiplayer support (3-6 players)
 - [ ] Tournament mode with blind increases
@@ -604,7 +604,7 @@ POST /api/train             # Train AI for N episodes
 - [ ] Opponent modeling and exploitation
 - [ ] Range analysis visualization
 
-## 📚 Learning Resources
+## Learning Resources
 
 ### Poker Theory
 - [Poker Hand Rankings](https://www.pokerstars.com/poker/games/rules/hand-rankings/)
@@ -615,7 +615,7 @@ POST /api/train             # Train AI for N episodes
 - [Double DQN](https://arxiv.org/abs/1509.06461)
 - [CFR Algorithm](http://modelai.gettysburg.edu/2013/cfr/cfr.pdf)
 
-## 💡 Credits
+## Credits
 
 Built with:
 - **Flask** - Python web framework
@@ -624,7 +624,7 @@ Built with:
 - **Vanilla JavaScript** - Frontend interactivity
 - **Google Fonts** - Press Start 2P & Bebas Neue
 
-## 📞 Support
+## Support
 
 Having issues? Try these steps:
 
@@ -634,7 +634,7 @@ Having issues? Try these steps:
 4. Check Flask server logs
 5. Open an issue on GitHub with details
 
-## 📄 License
+## License
 
 MIT License - Free to use, modify, and distribute.
 
