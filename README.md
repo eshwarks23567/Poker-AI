@@ -1,4 +1,4 @@
-# 🎰 Poker AI Challenge# 🎰 Poker AI - Adaptive Strategy System
+# 🎰 Poker AI Challenge#  Poker AI - Adaptive Strategy System
 
 
 
@@ -14,7 +14,7 @@ A Texas Hold'em poker game featuring an adaptive AI agent that switches between 
 
 - **Double DQN Agent**: Deep reinforcement learning with dueling architecture
 
-## 🎮 Features  - Experience replay buffer
+## Features  - Experience replay buffer
 
   - Target network for stable training
 
